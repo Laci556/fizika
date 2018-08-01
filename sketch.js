@@ -2,7 +2,7 @@ let gomb;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  gomb = new Gomb(0, 0, 50, "hajitas/asd.html");
+  gomb = new Gomb(0, 0, 50, "hajitas/asd.html", 'Hajítás');
 }
 
 function draw() {
@@ -25,8 +25,9 @@ class Gomb {
     ellipse(width/2 + this.x, height/2 + this.y, this.r*2);
     textSize(28);
     fill(100);
-    textAlign(CENTER, CENTER)
-    text(str,x,y,x2,y2)
+    textAlign(CENTER, CENTER);
+    textStyle(ITALIC);
+    text(this.felirat ,width/2 + this.x, height/2 + this.y);
   }
 
   mouseClicked() {
