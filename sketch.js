@@ -7,25 +7,24 @@ function preload() {
   monsterratSemiBoldItalic = loadFont('fonts/OpenSans-SemiBoldItalic.ttf');
 }
 
+let pontok = [];
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
   gomb = new Gomb(0, 0, 75, "hajitas/asd.html", 'Hajítás');
   background(20);
   for(let i = 0; i < 200; i++) {
-    fill(240);
-    stroke(240);
-    strokeWeight(2);
-    point(random(width), random(height));
+    pontok[i] = createVector(random(width), random(height));
   }
 }
 
 function draw() {
-  // background(28);
-  // for(let i = 0; i < 100; i++) {
-  //   fill(240);
-  //   stroke(240);
-  //   point(random(width), random(height));
-  // }
+  background(20);
+  for(let i = 0; i < pontok.length; i++) {
+    fill(240);
+    stroke(240);
+    point(pontok[i].x, pontok[i].y);
+  }
   fill(230, 83, 79);
   textAlign(CENTER);
   textSize(180);
