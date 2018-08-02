@@ -79,4 +79,7 @@ function mouseClicked() {
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
+  for(let i = 0; i < 200; i++) {
+    pontok[i] = createVector(random(width), random(height));
+  }
 }
