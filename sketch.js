@@ -21,7 +21,7 @@ function draw() {
   background(20);
   for(let i = 0; i < pontok.length; i++) {
     fill(240);
-    strokeWeight();
+    strokeWeight(3);
     stroke(240);
     point(pontok[i].x, pontok[i].y);
   }
