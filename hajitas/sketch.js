@@ -1,9 +1,12 @@
 let gui;
-l
+let h = 50;
+let x1 = h;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  gui = createGui('Beállítások');
+  gui = QuickSettings.create(20, 20, 'Beállítások');
+  angleMode(DEGREES);
+  
 }
 
 function draw() {

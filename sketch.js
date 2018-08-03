@@ -28,7 +28,7 @@ function draw() {
   fill(230, 83, 79);
   textAlign(CENTER);
   textSize(180);
-  stroke(230, 83, 79);
+  stroke(240, 83, 79);
   textFont(monsterratBoldItalic);
   text('Projektjeim', width/2, 200);
   gomb.show();
