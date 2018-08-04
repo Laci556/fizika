@@ -11,7 +11,7 @@ let pontok = [];
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  gomb = new Gomb(0, 0, 75, "hajitas/hajitas.html", 'Hajítás');
+  gomb = new Gomb(0, 0, 75, "hajitas/index.html", 'Hajítás');
   for(let i = 0; i < 200; i++) {
     pontok[i] = createVector(random(width), random(height));
   }
