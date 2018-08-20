@@ -1,3 +1,5 @@
+let g = 9.81;
+
 function setupUI() {
   gui = QuickSettings.create(width-220, 20, 'Beállítások');
   gui.addColor('Szín', '#ffffff');
@@ -19,6 +21,14 @@ function setupUI() {
   gui.addButton('Töröl', () => {redraw(); gui.setValue('Eredmény', '</br>'); gui.hideControl('Töröl'); gui.hideControl('Letöltés')}).hideControl('Töröl');
   gui.addButton('Letöltés', letoltes).hideControl('Letöltés');
 }
+let dropdown = [9.81, 10];
+function kezdoK() {
+  let welcome = QuickSettings.create(20, 20, ' ');
+  welcome.setSize(width - 40, height - 40);
+  welcome.addHTML('',"<h1 style=\"text-align: center; font-weight: bold;\">Hajítás 2.0</h1><p style=\"font-size: 20px;\">Az oldal használata: <ul style=\"font-size: 16px;\"> <li><b>Válassz egy időegységet!</b> Ez nagyban befolyásolhatja a mérési eredmények és az ábrázolás pontosságát, de gyengébb számítógépeken az alacsonyabb értékek lassíthatják a mérést. Érdemes az alap értéket használni, azzal is 99% fölötti a mérés pontossága.</li> <li><b>Válasszd ki a g értékét!</b></li> <li>Továbblépés után a jobb oldali kezelőfelületen a következő paramétereket  állíthatod be: az ábrázoláshoz használt szín, szög, közegellenállás, magasság és kezdősebesség.</li> <li></li> </ul></p>");
+  welcome.addRange('Időegység (s)', 0.0001, 0.5, 0.01, 0.00001);
+  welcome.addDropDown('g', dropdown, value => {g = value; g = Number(g.value)});
+}
 
 function letoltes(){
     let fileNev = year() + '.' + month() + '.' + day() + ';' + hour() + ':' + minute() + '.svg';
@@ -26,7 +36,7 @@ function letoltes(){
 }
 
 class Hajitas {
-  constructor(c, v0, m, szog, h, szin, dt) {
+  constructor(c, v0, m, szog, h, szin, dt, g) {
     this.c = c;
     this.v0 = v0;
     this.m = m;
@@ -34,6 +44,7 @@ class Hajitas {
     this.h = -h;
     this.szin = szin;
     this.dt = dt;
+    this.g = g;
   }
   kozegellenallas() {
 
@@ -41,7 +52,7 @@ class Hajitas {
   kozNelkul() {
     let cosSzog = cos(abs(this.szog));
     let sinSzog = sin(this.szog);
-    let a = 9.81 / 2;
+    let a = this.g / 2;
     this.t = 0;
     translate(20, height - 20);
     scale(scl);

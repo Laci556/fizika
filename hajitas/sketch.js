@@ -9,6 +9,7 @@ function setup() {
   canv = createCanvas(windowWidth, windowHeight);
   angleMode(DEGREES);
   setupUI();
+  kezdoK();
   noLoop();
 }
 
@@ -22,6 +23,7 @@ function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
 function mouseWheel(event) {
-  scl += event.delta / 1000;
-  console.log(event.delta);
+  if (scl - event.delta > 0){
+    scl -= event.delta / 1000;
+  }
 }
