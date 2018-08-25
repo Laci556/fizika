@@ -25,7 +25,14 @@ let dropdown = [9.81, 10];
 function kezdoK() {
   let welcome = QuickSettings.create(20, 20, ' ');
   welcome.setSize(width - 40, height - 40);
-  welcome.addHTML('',"<h1 style=\"text-align: center; font-weight: bold;\">Hajítás 2.0</h1><p style=\"font-size: 20px;\">Az oldal használata: <ul style=\"font-size: 16px;\"> <li><b>Válassz egy időegységet!</b> Ez nagyban befolyásolhatja a mérési eredmények és az ábrázolás pontosságát, de gyengébb számítógépeken az alacsonyabb értékek lassíthatják a mérést. Érdemes az alap értéket használni, azzal is 99% fölötti a mérés pontossága.</li> <li><b>Válasszd ki a g értékét!</b></li> <li>Továbblépés után a jobb oldali kezelőfelületen a következő paramétereket  állíthatod be: az ábrázoláshoz használt szín, szög, közegellenállás, magasság és kezdősebesség.</li> <li></li> </ul></p>");
+  welcome.addHTML('',"<h1 style=\"text-align: center; font-weight: bold;\">Hajítás 2.0</h1>" +
+  "<p style=\"font-size: 20px;\">Az oldal használata: <ul style=\"font-size: 16px;\"> " +
+  "<li><b>Válassz egy időegységet!</b> Ez nagyban befolyásolhatja a mérési eredmények és az ábrázolás pontosságát," +
+  " de gyengébb számítógépeken az alacsonyabb értékek lassíthatják a mérést." +
+  " Érdemes az alap értéket használni, azzal is 99% fölötti a mérés pontossága.</li>" +
+  "<li><b>Válasszd ki a g értékét!</b></li> <li>Továbblépés után a jobb oldali kezelőfelületen" +
+  " a következő paramétereket  állíthatod be: az ábrázoláshoz használt szín, szög," +
+  " közegellenállás, magasság és kezdősebesség.</li> <li></li> </ul></p>");
   welcome.addRange('Időegység (s)', 0.0001, 0.5, 0.01, 0.00001);
   welcome.addDropDown('g', dropdown, value => {g = value; g = Number(g.value)});
 }
@@ -82,7 +89,12 @@ class Hajitas {
 
       this.t += this.dt;
     }
-    let eredmeny = "<p style=\"font-size: 10.3pt\">" + "<b>x =</b> " + (this.v0 * cosSzog * this.t).toFixed(3) + " m" + "</br>" + "<b>t =</b> " + (this.t).toFixed(3) + " s" + "</br>" + "<b>Becsapódás szöge:</b> " + (acos((x2 - x1) / (sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2))))).toFixed(3) + "°" + "<br/>" + "<b>Végsebesség:</b> " + (sqrt(pow(y2 - y1, 2) + pow(x2 - x1, 2)) / this.dt).toFixed(3) + " m/s" + "</p>";
+    let eredmeny = "<p style=\"font-size: 10.3pt\">" + "<b>x =</b> " +
+    (this.v0 * cosSzog * this.t).toFixed(3) + " m" + "</br>" + "<b>t =</b> " +
+    (this.t).toFixed(3) + " s" + "</br>" + "<b>Becsapódás szöge:</b> " +
+    (acos((x2 - x1) / (sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)))).toFixed(3) + "°" +
+    "<br/>" + "<b>Végsebesség:</b> " +
+    (sqrt((y2 - y1) ** 2 + (x2 - x1) ** 2) / this.dt).toFixed(3) + " m/s" + "</p>";
     gui.setValue('Eredmény', eredmeny);
     gui.showControl('Töröl');
   }
