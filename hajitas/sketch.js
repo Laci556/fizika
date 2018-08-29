@@ -1,15 +1,22 @@
-let gui;
-let koz = true;
+let koz = true; // koz
 let scl = 1;
-let megnyomva = false;
 let H;
 let canv;
+let ido; // dt
+let beall = 300;
+let C_; // c
+let tomeg; // m
+let g; // g
+let formatum; // formatum
+let alfa = 0; // szog
+let magassag; // h
+let kezdoseb; // v0
+
 
 function setup() {
-  canv = createCanvas(windowWidth, windowHeight);
+  canv = createCanvas(windowWidth - beall, windowHeight);
+  canv.parent(document.getElementById("cnv"));
   angleMode(DEGREES);
-  setupUI();
-  kezdoK();
   noLoop();
 }
 
@@ -17,13 +24,18 @@ function draw() {
   background(20);
   strokeWeight(3);
   stroke(255);
-  line(0, height-20, width, height-20);
+  line(20, height-20, width, height-20);
 }
+
 function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
+  resizeCanvas(windowWidth - beall, windowHeight);
 }
+
 function mouseWheel(event) {
-  if (scl - event.delta > 0){
+  if (scl - event.delta / 1000 > 0.1) {
     scl -= event.delta / 1000;
+  } else {
+    scl += event.delta / 1000;
   }
 }
+

@@ -9,10 +9,190 @@
     <link rel="shortcut icon" href="../favicon.ico" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/p5.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/addons/p5.dom.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/quicksettings@latest/quicksettings.min.js"></script>
     <script src="sketch.js"></script>
     <script src="hajitas.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,800i,600,800" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
+    <div id="szoveg">
+      <h1 style="text-align: center; font-weight: bold;">Hajítás 2.0</h1>
+      <h2>Az oldal használata:</h2>
+      <div class="lista">
+        <p><b>Válassz egy időegységet!</b> Ez nagyban befolyásolhatja a mérési eredmények és az ábrázolás pontosságát,
+        de gyengébb számítógépeken az alacsonyabb értékek lassíthatják a mérést. 
+        Érdemes az alap értéket használni, azzal is 99% fölötti a mérés pontossága.</p></br>
+        <p><b>Válasszd ki a g értékét!</b></p></br> <p>Továbblépés után a jobb oldali kezelőfelületen 
+        a következő paramétereket  állíthatod be: az ábrázoláshoz használt szín, szög,
+        közegellenállás, magasság és kezdősebesség.</p></br>
+        <p>A <i><b>Számol</b></i> gombra kattintva a program megrajzolja a test pályáját, és 
+        kiszámolja a végsebességet, a becsapódás szögét, a becsapódás távolságát és az eltelt időt.</p></br>
+        <p>A <b>Letöltés</b> gombra kattintva a megrajzolt pályát képként mentheted, 
+        amelynek a formátumát alább kiválaszthatod. (<i>.jpg:</i> kisebb méret, jobb kompatibilitás; <i>.svg:</i> 
+        nagyobb méret, sokkal jobb minőség)</p></br>
+        <p>Az ábrázolás méretén a görgővel változtathatsz.</p></br>
+      </div>
+
+      <div id="form">
+
+        <div class="ido">
+          <p>Időegység: <span id=idoe>0.01</span> s</p>
+          <div class="slider-class">
+            <input type="range" min="1" max="100" value="10" id="slider" class="slider">
+          </div>
+        </div>
+
+        <div>
+          <p>A gravitációs gyorsulás értéke:</p>
+          <select id="dropdown">
+            <option value="9.81">9.81 m/s²</option>
+            <option value="10">10 m/s²</option>
+          </select>
+        </div>
+
+        <div>
+          <p>Formátum:</p>
+          <select id="dropdown2">
+            <option value=".svg">.svg</option>
+            <option value=".jpg">.jpg</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="gomb">
+        <a href="#" class="gomb" onclick="tovabb()">Tovább</a>
+      </div>
+    </div>
+
+    <div class="masodik" id="masodik">
+      <div id="cnv">
+
+      </div>
+      <div class="beallitasok">
+        <!-- control panel -->
+        <h1>Beállítások</h1>
+        <div class="container">
+          <label for="szin">Szín</label>
+          <input type="color" id="szin" name="color" value="#ffffff"/>
+
+          <div class="szog">
+            <label for="sliderSzog">Szög: <span id=szog>0°</span></label>
+            <div class="slider-class">
+              <input type="range" min="-89" max="89" value="0" id="sliderSzog" class="slider"/>
+            </div>
+          </div>
+
+          <div class="kozegell">
+            <label for="kozegellenallas">Közegellenállás</label>
+            <input type="checkbox" id="kozegellenallas" name="kozegellenallas" checked="checked">
+          </div>
+
+          <div class="c">
+            <label for="C">C: </label>
+            <input type="number" id="C">
+            <label for="C">kg/m</label>
+          </div>
+
+          <div class="c">
+            <label for="m">Tömeg: </label>
+            <input type="number" id="m">
+            <label for="m">kg</label>
+          </div>
+
+          <div class="c">
+            <label for="h">Magasság: </label>
+            <input type="number" id="h" required>
+            <label for="h">m</label>
+          </div>          
+
+          <div class="c">
+            <label for="v0">Kezdősebesség: </label>
+            <input type="number" id="v0" required>
+            <label for="v0">m/s</label>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+    
   </body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script>
+    let slider = document.getElementById("slider");
+    let idoe = document.getElementById("idoe");
+    let kozE = document.getElementById("C");
+
+    function tovabb() {
+      document.getElementById("masodik").style.display = "flex";
+      document.getElementById("szoveg").style.display = "none";
+      console.log("ok");
+      g = Number(document.getElementById("dropdown").value);
+      formatum = document.getElementById("dropdown2").value;
+      ido = slider.value / 1000;
+    }
+
+    let szogspan = document.getElementById("szog");
+    let slider2 = document.getElementById("sliderSzog");
+    slider.oninput = function() {
+      ido = this.value / 1000;
+      idoe.innerHTML = ido;
+    }
+    slider2.oninput = function() {
+      alfa = Number(this.value);
+      szogspan.innerHTML = alfa + "°";
+    }
+
+    let check = document.getElementById("kozegellenallas");
+    check.onchange = function() {
+      koz = check.checked;
+      if (koz) {
+        document.getElementById("C").disabled = false;
+        document.getElementById("m").disabled = false;
+      } else {
+        document.getElementById("C").disabled = true;
+        document.getElementById("m").disabled = true;
+      }
+    }
+
+    kozE.onchange = function() {
+      C_ = Number(this.value);
+    }
+
+    document.getElementById("m").onchange = function() {
+      tomeg = Number(this.value);
+    }
+    document.getElementById("h").onchange = function() {
+      magassag = Number(this.value);
+    }
+    document.getElementById("v0").onchange = function() {
+      kezdoseb = Number(this.value);
+    }
+  </script>
 </html>
