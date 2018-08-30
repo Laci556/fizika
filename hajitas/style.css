@@ -248,15 +248,16 @@ label {
     margin-left: 5px;;
 }
 
+.beal {
+    background-color: #15959F;
+    border-radius: 10px;
+}
 
-
-
-
-
-
-
-
-
+#eredmeny {
+    padding: 1px 15px 1px 15px;
+    font-size: 19px;
+    background-color: rgb(17, 56, 85)
+}
 
 
 

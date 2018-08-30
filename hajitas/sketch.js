@@ -11,7 +11,7 @@ let formatum; // formatum
 let alfa = 0; // szog
 let magassag; // h
 let kezdoseb; // v0
-
+let strW = 0.3;
 
 function setup() {
   canv = createCanvas(windowWidth - beall, windowHeight);
@@ -22,9 +22,10 @@ function setup() {
 
 function draw() {
   background(20);
-  strokeWeight(3);
+  strokeWeight(0.5);
   stroke(255);
   line(20, height-20, width, height-20);
+  line(20, height-20, 20, -width+20)
 }
 
 function windowResized() {

@@ -72,8 +72,10 @@
         <!-- control panel -->
         <h1>Beállítások</h1>
         <div class="container">
-          <label for="szin">Szín</label>
-          <input type="color" id="szin" name="color" value="#ffffff"/>
+          <div>
+            <label for="szin">Szín</label>
+            <input type="color" id="szin" name="color" value="#ffffff"/>
+          </div>
 
           <div class="szog">
             <label for="sliderSzog">Szög: <span id=szog>0°</span></label>
@@ -111,6 +113,19 @@
             <label for="v0">m/s</label>
           </div>
 
+          <div id="gomb">
+            <a href="#" class="gomb" onclick="szamol()">Számol</a>
+          </div>
+          
+          <div id="eredmeny"></div>
+
+          <div id="gomb">
+            <a href="#" class="gomb" onclick="torol() " id="torles">Törlés</a>
+          </div>
+
+          <div id="gomb">
+            <a href="#" class="gomb" onclick="letolt()" id="letolt">Letöltés</a>
+          </div>
 
         </div>
       </div>
@@ -156,6 +171,8 @@
       g = Number(document.getElementById("dropdown").value);
       formatum = document.getElementById("dropdown2").value;
       ido = slider.value / 1000;
+      document.getElementById("torles").style.visibility = "hidden";
+      document.getElementById("letolt").style.visibility = "hidden";
     }
 
     let szogspan = document.getElementById("szog");
@@ -193,6 +210,40 @@
     }
     document.getElementById("v0").onchange = function() {
       kezdoseb = Number(this.value);
+    }
+
+
+
+    function szamol() {
+      if (document.getElementById("h").value != "" && document.getElementById("v0").value != "") {
+        if (koz && (document.getElementById("C").value == "" || document.getElementById("m").value == "")) {
+          alert("Add meg a hiányzó paramétereket!");
+        } else {
+          H = new Hajitas(C_, kezdoseb, tomeg, alfa, magassag, document.getElementById("szin").value, ido, g);
+          if (koz) {
+            H.kozegellenallas();
+          } else {
+            H.kozNelkul();
+          }
+          document.getElementById("torles").style.visibility = "visible";
+          document.getElementById("letolt").style.visibility = "visible";
+          document.getElementById("eredmeny").style.visibility = "visible";
+        }
+      } else {
+        alert("Add meg a hiányzó paramétereket!");
+      }
+    }
+    
+    function torol() {
+      redraw();
+      // eredmenyeket elrejt
+      document.getElementById("torles").style.visibility = "hidden";
+      document.getElementById("letolt").style.visibility = "hidden";
+      document.getElementById("eredmeny").style.visibility = "hidden";
+    }
+
+    function letolt() {
+      H.letoltes();
     }
   </script>
 </html>
