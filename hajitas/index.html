@@ -64,6 +64,8 @@
       </div>
     </div>
 
+    <p style="text-align: center;" id="copyright">&copy; Bucsai László</p>
+
     <div class="masodik" id="masodik">
       <div id="cnv">
 
@@ -126,7 +128,11 @@
           <div id="gomb">
             <a href="#" class="gomb" onclick="letolt()" id="letolt">Letöltés</a>
           </div>
-
+          <div class="copy">
+            <div class="copyr">
+              <p>&copy; Bucsai László</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -167,6 +173,7 @@
     function tovabb() {
       document.getElementById("masodik").style.display = "flex";
       document.getElementById("szoveg").style.display = "none";
+      document.getElementById("copyright").style.display = "none";
       console.log("ok");
       g = Number(document.getElementById("dropdown").value);
       formatum = document.getElementById("dropdown2").value;

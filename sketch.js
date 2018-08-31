@@ -1,86 +1,41 @@
-let gomb;
-let monsterratBoldItalic;
-let monsterratSemiBoldItalic
-
-function preload() {
-  monsterratBoldItalic = loadFont('fonts/Montserrat-ExtraBoldItalic.ttf');
-  monsterratSemiBoldItalic = loadFont('fonts/OpenSans-SemiBoldItalic.ttf');
-}
-
-let pontok = [];
-
+let P = [];
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  gomb = new Gomb(0, 100, 75, "hajitas/index.html", 'Hajítás');
-  for(let i = 0; i < 200; i++) {
-    pontok[i] = createVector(random(width), random(height));
-  }
 }
-
 function draw() {
   background(20);
-  for(let i = 0; i < pontok.length; i++) {
-    fill(240);
-    strokeWeight(3);
-    stroke(240);
-    point(pontok[i].x, pontok[i].y);
+  P.push(new part());
+  for (let i = 0; i < P.length; i++) {
+    if (P[i].x < 0 || P[i].x > width) {
+      P[i].xSpeed = -P[i].xSpeed;
+    }
+    if (P[i].y < 0 || P[i].y > height) {
+      P[i].ySpeed = -P[i].ySpeed;
+    }
+    P[i].show();
+    if (P[i].weight < 0) {
+      P.splice(i, 1);
+      i--;
+    }
   }
-  fill(230, 83, 79);
-  textAlign(CENTER);
-  textSize(width/10 + 25);
-  stroke(240, 83, 79);
-  textFont(monsterratBoldItalic);
-  text('Projektjeim', width/2, 200);
-  gomb.show();
 }
-
-class Gomb {
-  constructor(x, y, r, url, felirat) {
-    this.x = x;
-    this.y = y;
-    this.url = url;
-    this.r = r;
-    this.felirat = felirat;
+class part {
+  constructor() {
+    this.x = mouseX;
+    this.y = mouseY;
+    this.weight = random(5, 20);
+    this.xSpeed = random(-3, 3);
+    this.ySpeed = random(-3, 3);
+    this.r = random(0, 255);
+    this.g = random(0, 255);
+    this.b = random(0, 255);
   }
-
   show() {
-    push()
-    noStroke();
-    if (dist(width/2 + this.x, height/2 + this.y, mouseX, mouseY) < this.r) {
-      fill(192);
-    } else {
-      fill(226);
-    }
-    noStroke();
-    ellipse(width/2 + this.x, height/2 + this.y, this.r*2);
-    textSize(38);
-    textFont(monsterratSemiBoldItalic);
-    if (dist(width/2 + this.x, height/2 + this.y, mouseX, mouseY) < this.r) {
-      fill(94, 152, 117);
-    } else {
-      fill(94, 152, 117);
-    }
-    textAlign(CENTER, CENTER);
-    textStyle(ITALIC);
-    text(this.felirat, width/2 + this.x, height/2 + this.y - 7);
-    pop();
+    stroke(this.r, this.g, this.b);
+    strokeWeight(this.weight);
+    point(this.x, this.y);
+    this.weight = this.weight - 0.075;
+    this.x += this.xSpeed;
+    this.y += this.ySpeed;
   }
-
-  mouseClicked() {
-    if (dist(width/2 + this.x, height/2 + this.y, mouseX, mouseY) < this.r) {
-      window.location.href = this.url;
-    }
-  }
-}
-
-function mouseClicked() {
-  gomb.mouseClicked();
-}
-
-function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
-  for(let i = 0; i < 200; i++) {
-    pontok[i] = createVector(random(width), random(height));
-  }
-  //console.log(width);
 }

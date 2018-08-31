@@ -1,0 +1,46 @@
+body {
+    background-color: rgba(255, 255, 255, 0);
+}
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+.cim {
+    font-family: 'Montserrat';
+    font-weight: 800;
+    color: rgb(230, 83, 79);
+    text-align: center;
+    margin-top: 0px;
+}
+.gomb {
+    display:block;
+    width:170px;
+    height:170px;
+    line-height:166px;
+    border-radius: 50%;
+    color: rgb(94, 152, 117);
+    text-align:center;
+    text-decoration:none;
+    background: rgb(226, 226, 226);
+    font-size:40px;
+    font-weight:bold;
+    font-family: 'Open Sans';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+.gomb:hover {
+    background: rgb(192, 192, 192);
+}
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
